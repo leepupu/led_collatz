@@ -23,13 +23,14 @@ void light_off_all()
 
 void light_on(int n)
 {
-	printf("tail: %d\n", n);
+	int tail = n % 10;
+	printf("tail: %d\tnum: %d\n", tail, n);
 	light_off_all();
 	delay(50);
-	digitalWrite(num2en[n][0], 1);
-	digitalWrite(num2en[n][1], 1);
-	digitalWrite(num2dt[n][0], 1);
-	digitalWrite(num2dt[n][1], 0);
+	digitalWrite(num2en[tail][0], 1);
+	digitalWrite(num2en[tail][1], 1);
+	digitalWrite(num2dt[tail][0], 1);
+	digitalWrite(num2dt[tail][1], 0);
 	delay(400);
 }
 
@@ -64,14 +65,14 @@ int main()
 	//test();
 	while(scanf("%d", &n))
 	{
-		light_on(n%10);
+		light_on(n);
 		while(n != 1)
 		{
 			if(n %2 == 0)
 				n /= 2;
 			else
 				n = 3*n + 1;
-			light_on(n%10);
+			light_on(n);
 		}
 	}
 }
